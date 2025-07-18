@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Жилье.kz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-text">
+                    <span class="logo-main">Жилье</span>
+                    <span class="logo-kz">kz</span>
+                </div>
+            </div>
+            <div class="header-buttons">
+                <a href="index.html" class="btn btn-outline">На главную</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn" data-lang="ru">Рус</button>
+                    <span class="lang-divider">|</span>
+                    <button class="lang-btn" data-lang="kz">Қаз</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <main class="main-content">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2 class="auth-title">Вход в аккаунт</h2>
+                <p class="auth-subtitle">Введите номер телефона для получения кода</p>
+                
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="phone">Номер телефона</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (777) 123-45-67" required class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" placeholder="Введите пароль" required class="form-input">
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Войти</button>
+                </form>
+                
+                <div class="auth-links">
+                    <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <div class="footer-copyright">Жильē.kz 2024 ©</div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="notifications.js"></script>
+    <script src="user.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

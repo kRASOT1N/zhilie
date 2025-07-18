@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жилье.kz - От людей для людей</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Боковые рекламные блоки -->
+    <div class="ad-banner ad-banner-left">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=200&q=80" alt="Реклама" class="ad-img">
+    </div>
+    <div class="ad-banner ad-banner-right">
+        <img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=200&q=80" alt="Реклама" class="ad-img">
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-text">
+                    <span class="logo-main">Жилье</span>
+                    <span class="logo-kz">kz</span>
+                </div>
+                
+            </div>
+            <div class="header-buttons">
+                <div class="auth-buttons">
+                    <a href="register.html" class="btn btn-outline">Зарегистрироваться</a>
+                    <a href="login.html" class="btn btn-outline">Войти</a>
+                </div>
+                <div class="user-info" style="display: none;">
+                    <!-- Здесь будет отображаться информация о пользователе -->
+                </div>
+                <div class="lang-switcher">
+                    <button class="lang-btn" data-lang="ru">Рус</button>
+                    <span class="lang-divider">|</span>
+                    <button class="lang-btn" data-lang="kz">Қаз</button>
+                </div>
+            </div>
+        </div>
+        <nav class="navigation">
+            <a href="#" class="nav-link active">Главная</a>
+            <a href="#" class="nav-link">Поиск</a>
+            <a href="submit.html" class="nav-link">Подать объявление</a>
+            <a href="#" class="nav-link">Избранное</a>
+            <a href="#" class="nav-link">Кабинет</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Центральный баннер -->
+        <div class="central-banner">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h2>Найдите идеальную недвижимость</h2>
+                    <p>Тысячи объявлений от проверенных продавцов</p>
+                </div>
+                <div class="banner-image">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Недвижимость">
+                </div>
+            </div>
+        </div>
+
+        <!-- Основные кнопки действий -->
+        <div class="main-actions">
+            <div class="action-grid">
+                <a href="submit.html?category=housing&action=rent" class="action-btn action-rent" data-ru="Снять" data-kz="Жалға алу">
+                    <div class="action-icon">🏠</div>
+                    <div class="action-text">
+                        <h3>Снять</h3>
+                        <p>Найти квартиру для аренды</p>
+                    </div>
+                </a>
+                
+                <a href="submit.html?category=housing&action=rent-out" class="action-btn action-rent-out" data-ru="Сдать" data-kz="Жалға беру">
+                    <div class="action-icon">📋</div>
+                    <div class="action-text">
+                        <h3>Сдать</h3>
+                        <p>Сдать свою недвижимость</p>
+                    </div>
+                </a>
+                
+                <a href="submit.html?category=housing&action=buy" class="action-btn action-buy" data-ru="Купить" data-kz="Сатып алу">
+                    <div class="action-icon">💰</div>
+                    <div class="action-text">
+                        <h3>Купить</h3>
+                        <p>Купить недвижимость</p>
+                    </div>
+                </a>
+                
+                <a href="submit.html?category=housing&action=sell" class="action-btn action-sell" data-ru="Продать" data-kz="Сату">
+                    <div class="action-icon">🏢</div>
+                    <div class="action-text">
+                        <h3>Продать</h3>
+                        <p>Продать свою недвижимость</p>
+                    </div>
+                </a>
+                
+                <a href="search.html" class="action-btn action-search" data-ru="Поиск" data-kz="Іздеу">
+                    <div class="action-icon">🔍</div>
+                    <div class="action-text">
+                        <h3>Поиск</h3>
+                        <p>Найти недвижимость</p>
+                    </div>
+                </a>
+                
+                <button class="action-btn action-credit" data-ru="Кредит" data-kz="Несие">
+                    <div class="action-icon">🏦</div>
+                    <div class="action-text">
+                        <h3>Кредит</h3>
+                        <p>Получить кредит на недвижимость</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quote Section -->
+        <div class="quote-section">
+            <blockquote class="quote">
+                "Сначала делайте тяжелую работу. Легкая работа сама о себе позаботится."
+            </blockquote>
+            <cite class="quote-author">Дейл Карнеги</cite>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <div class="footer-copyright">Жильē.kz 2024 ©</div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="notifications.js"></script>
+    <script src="user.js"></script>
+</body>
+</html> 

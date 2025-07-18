@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подача объявления | Жилье.kz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .submit-container {
+            max-width: 800px;
+            margin: 40px auto 60px auto;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 4px 32px rgba(76,175,80,0.10);
+            padding: 32px 24px 24px 24px;
+        }
+        .submit-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .submit-tab {
+            padding: 12px 24px;
+            border-radius: 16px 16px 0 0;
+            background: #f7f9fb;
+            color: #256029;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+        }
+        .submit-tab.active {
+            background: #fff;
+            border-bottom: 2px solid #fff;
+            border-top: 2px solid var(--main-green);
+            color: var(--main-green);
+        }
+        .submit-form {
+            display: none;
+        }
+        .submit-form.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .form-label.required:after {
+            content: '*';
+            color: #e53935;
+            margin-left: 4px;
+        }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1.5px solid #e0e0e0;
+            font-size: 15px;
+            background: #f7f9fb;
+            margin-bottom: 2px;
+            transition: border 0.2s;
+        }
+        .form-input:focus, .form-textarea:focus, .form-input:focus {
+            border: 1.5px solid var(--main-green);
+            outline: none;
+        }
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .photo-upload {
+            border: 2px dashed #b2dfdb;
+            border-radius: 14px;
+            background: #f3f7f3;
+            padding: 24px;
+            text-align: center;
+            color: #256029;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: border 0.2s;
+        }
+        .photo-upload.dragover {
+            border-color: var(--main-green);
+            background: #eaf7ea;
+        }
+        .photo-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .photo-thumb {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        .lang-switcher {
+            float: right;
+            margin-top: -12px;
+        }
+        
+        /* Стили для тарифов */
+        .tariff-section {
+            margin-top: 32px;
+            padding: 24px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            border: 1px solid #e9ecef;
+        }
+        .balance-info {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+        }
+        .balance-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .balance-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .balance-amount {
+            font-weight: 700;
+            color: var(--main-green);
+            font-size: 18px;
+        }
+        .tariffs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .tariff-card {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tariff-card:hover {
+            border-color: var(--main-green);
+            transform: translateY(-2px);
+        }
+        .tariff-card.selected {
+            border-color: var(--main-green);
+            background: #f0f8f0;
+        }
+        .tariff-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .tariff-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .tariff-header h3 {
+            margin: 0;
+            color: #212529;
+            font-size: 18px;
+        }
+        .tariff-price {
+            font-weight: 700;
+            color: var(--main-green);
+            font-size: 20px;
+        }
+        .tariff-features {
+            margin-bottom: 12px;
+        }
+        .feature {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+        .insufficient-funds {
+            color: #dc3545;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .services-container {
+            margin-bottom: 20px;
+        }
+        .services-container h3 {
+            margin-bottom: 16px;
+            color: #212529;
+        }
+        .service-item {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+        .service-item:hover {
+            border-color: var(--main-green);
+        }
+        .service-item.selected {
+            border-color: var(--main-green);
+            background: #f0f8f0;
+        }
+        .service-item.disabled {
+            opacity: 0.5;
+        }
+        .service-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin: 0;
+        }
+        .service-checkbox input[type="checkbox"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        .service-text {
+            flex: 1;
+            font-size: 14px;
+            color: #495057;
+        }
+        .service-price {
+            font-weight: 600;
+            color: var(--main-green);
+        }
+        .total-section {
+            background: #fff;
+            border: 2px solid var(--main-green);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .total-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .total-label {
+            font-weight: 600;
+            color: #212529;
+            font-size: 16px;
+        }
+        .total-amount {
+            font-weight: 700;
+            color: var(--main-green);
+            font-size: 20px;
+        }
+        .insufficient-total {
+            color: #dc3545;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 8px;
+            text-align: center;
+        }
+        
+        /* Стили для загрузки */
+        .balance-loading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e9ecef;
+            border-top: 2px solid var(--main-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .tariff-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 40px;
+            color: #6c757d;
+            font-style: italic;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+        
+        /* Стили для ошибок и уведомлений */
+        .form-errors {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            color: #721c24;
+        }
+        .error-message ul {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+        }
+        .error-message li {
+            margin-bottom: 4px;
+        }
+        .success-notification, .error-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        .success-notification {
+            background: #28a745;
+        }
+        .error-notification {
+            background: #dc3545;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .submit-container { padding: 10px 2px; }
+            .submit-tabs { gap: 4px; }
+            .submit-tab { font-size: 14px; padding: 8px 10px; }
+            .tariffs-container {
+                grid-template-columns: 1fr;
+            }
+            .tariff-section {
+                padding: 16px;
+            }
+        }
+        
+        /* Фиксация футера внизу */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .submit-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .forms-section {
+            flex: 1;
+            margin-bottom: 32px;
+        }
+        .footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-text">
+                    <span class="logo-main">Жилье</span>
+                    <span class="logo-kz">kz</span>
+                </div>
+            </div>
+            <div class="header-buttons">
+                <a href="index.html" class="btn btn-outline">На главную</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn" data-lang="ru">Рус</button>
+                    <span class="lang-divider">|</span>
+                    <button class="lang-btn" data-lang="kz">Қаз</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="submit-container">
+            <div class="submit-tabs" id="submitTabs"></div>
+            
+            <!-- Формы объявлений -->
+            <div class="forms-section">
+                <form id="form-housing" class="submit-form"></form>
+                <form id="form-bed" class="submit-form"></form>
+                <form id="form-realestate" class="submit-form"></form>
+                <form id="form-food" class="submit-form"></form>
+                <form id="form-service" class="submit-form"></form>
+                <form id="form-place" class="submit-form"></form>
+                <form id="form-auto" class="submit-form"></form>
+                <form id="form-other" class="submit-form"></form>
+                <form id="form-land" class="submit-form"></form>
+                <form id="form-leisure" class="submit-form"></form>
+            </div>
+            
+            <!-- Секция тарифов -->
+            <div id="tariffSection" class="tariff-section"></div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <div class="footer-copyright">Жильē.kz 2024 ©</div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="notifications.js"></script>
+    <script src="submit-forms.js"></script>
+</body>
+</html> 
