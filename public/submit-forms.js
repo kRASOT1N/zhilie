@@ -888,7 +888,7 @@ async function submitForm(formId) {
   
   const errors = validateForm(formId);
   if (errors.length > 0) {
-    showErrors(errors);
+    showErrors(errors); 
     return;
   }
   
@@ -899,7 +899,7 @@ async function submitForm(formId) {
   const originalText = submitBtn.textContent;
   submitBtn.textContent = currentLang === 'kz' ? 'Жіберілуде...' : 'Отправляется...';
   submitBtn.disabled = true;
-  
+
   try {
     const formData = collectFormData(formId);
     
