@@ -226,6 +226,135 @@ function translateButtons(lang) {
     });
 }
 
+// --- Перевод фильтров поиска (search.html) ---
+function translateSearchFilters(lang) {
+    const t = translations[lang];
+    // Фильтры
+    const filterLabels = [
+        { selector: 'label[for="categoryFilter"]', ru: 'Категория', kz: 'Санат' },
+        { selector: 'label[for="actionFilter"]', ru: 'Действие', kz: 'Әрекет' },
+        { selector: 'label[for="priceFrom"]', ru: 'Цена от', kz: 'Бағасы (бастап)' },
+        { selector: 'label[for="priceTo"]', ru: 'Цена до', kz: 'Бағасы (дейін)' },
+        { selector: 'label[for="areaFrom"]', ru: 'Площадь от', kz: 'Ауданы (бастап)' },
+        { selector: 'label[for="areaTo"]', ru: 'Площадь до', kz: 'Ауданы (дейін)' },
+        { selector: 'label[for="roomsFilter"]', ru: 'Количество комнат', kz: 'Бөлме саны' },
+        { selector: 'label[for="cityFilter"]', ru: 'Город', kz: 'Қала' },
+        { selector: 'label[for="statusFilter"]', ru: 'Статус', kz: 'Статус' },
+        { selector: 'label[for="premiumFilter"]', ru: 'Тип объявления', kz: 'Хабарландыру түрі' }
+    ];
+    filterLabels.forEach(item => {
+        const el = document.querySelector(item.selector);
+        if (el) el.textContent = lang === 'kz' ? item.kz : item.ru;
+    });
+    // Опции фильтров
+    // Категория
+    const categoryOptions = [
+        { ru: 'Все категории', kz: 'Барлық санаттар' },
+        { ru: 'Жильё', kz: 'Тұрғын үй' },
+        { ru: 'Койко-места', kz: 'Койко-орындар' },
+        { ru: 'Недвижимость', kz: 'Жылжымайтын мүлік' },
+        { ru: 'Общепит', kz: 'Қоғамдық тамақтану' },
+        { ru: 'Торговля и услуги', kz: 'Сауда және қызметтер' },
+        { ru: 'Место', kz: 'Орын' },
+        { ru: 'Авто', kz: 'Авто' },
+        { ru: 'Разное', kz: 'Әртүрлі' },
+        { ru: 'Участки', kz: 'Учаскелер' },
+        { ru: 'Отдых — лечение', kz: 'Демалыс — емдеу' }
+    ];
+    const categorySelect = document.getElementById('categoryFilter');
+    if (categorySelect) {
+        Array.from(categorySelect.options).forEach((opt, i) => {
+            if (categoryOptions[i]) opt.textContent = lang === 'kz' ? categoryOptions[i].kz : categoryOptions[i].ru;
+        });
+    }
+    // Действие
+    const actionOptions = [
+        { ru: 'Все действия', kz: 'Барлық әрекеттер' },
+        { ru: 'Снять', kz: 'Жалға алу' },
+        { ru: 'Сдать', kz: 'Жалға беру' },
+        { ru: 'Купить', kz: 'Сатып алу' },
+        { ru: 'Продать', kz: 'Сату' }
+    ];
+    const actionSelect = document.getElementById('actionFilter');
+    if (actionSelect) {
+        Array.from(actionSelect.options).forEach((opt, i) => {
+            if (actionOptions[i]) opt.textContent = lang === 'kz' ? actionOptions[i].kz : actionOptions[i].ru;
+        });
+    }
+    // Комнаты
+    const roomsOptions = [
+        { ru: 'Любое', kz: 'Кез келген' },
+        { ru: '1 комната', kz: '1 бөлме' },
+        { ru: '2 комнаты', kz: '2 бөлме' },
+        { ru: '3 комнаты', kz: '3 бөлме' },
+        { ru: '4+ комнат', kz: '4+ бөлме' }
+    ];
+    const roomsSelect = document.getElementById('roomsFilter');
+    if (roomsSelect) {
+        Array.from(roomsSelect.options).forEach((opt, i) => {
+            if (roomsOptions[i]) opt.textContent = lang === 'kz' ? roomsOptions[i].kz : roomsOptions[i].ru;
+        });
+    }
+    // Статус
+    const statusOptions = [
+        { ru: 'Все статусы', kz: 'Барлық статус' },
+        { ru: 'На модерации', kz: 'Модерацияда' },
+        { ru: 'Одобрено', kz: 'Бекітілген' },
+        { ru: 'Отклонено', kz: 'Қабылданбаған' }
+    ];
+    const statusSelect = document.getElementById('statusFilter');
+    if (statusSelect) {
+        Array.from(statusSelect.options).forEach((opt, i) => {
+            if (statusOptions[i]) opt.textContent = lang === 'kz' ? statusOptions[i].kz : statusOptions[i].ru;
+        });
+    }
+    // Тип объявления
+    const premiumOptions = [
+        { ru: 'Все объявления', kz: 'Барлық хабарландыру' },
+        { ru: 'Премиум', kz: 'Премиум' },
+        { ru: 'ТОП', kz: 'ТОП' },
+        { ru: 'VIP', kz: 'VIP' }
+    ];
+    const premiumSelect = document.getElementById('premiumFilter');
+    if (premiumSelect) {
+        Array.from(premiumSelect.options).forEach((opt, i) => {
+            if (premiumOptions[i]) opt.textContent = lang === 'kz' ? premiumOptions[i].kz : premiumOptions[i].ru;
+        });
+    }
+    // Сортировка
+    const sortOptions = [
+        { ru: 'Сначала новые', kz: 'Алдымен жаңалары' },
+        { ru: 'Сначала старые', kz: 'Алдымен ескілері' },
+        { ru: 'Цена по возрастанию', kz: 'Баға өсуі бойынша' },
+        { ru: 'Цена по убыванию', kz: 'Баға кемуі бойынша' },
+        { ru: 'Площадь по возрастанию', kz: 'Ауданы өсуі бойынша' },
+        { ru: 'Площадь по убыванию', kz: 'Ауданы кемуі бойынша' }
+    ];
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) {
+        Array.from(sortSelect.options).forEach((opt, i) => {
+            if (sortOptions[i]) opt.textContent = lang === 'kz' ? sortOptions[i].kz : sortOptions[i].ru;
+        });
+    }
+    // Кнопка очистки
+    const clearBtn = document.querySelector('.clear-filters');
+    if (clearBtn) clearBtn.textContent = lang === 'kz' ? 'Тазарту' : 'Очистить';
+    // Заголовок фильтров
+    const filtersTitle = document.querySelector('.filters-title');
+    if (filtersTitle) filtersTitle.textContent = lang === 'kz' ? 'Іздеу сүзгілері' : 'Фильтры поиска';
+    // Плейсхолдеры
+    const cityInput = document.getElementById('cityFilter');
+    if (cityInput) cityInput.placeholder = lang === 'kz' ? 'Қаланы енгізіңіз' : 'Введите город';
+    const priceFromInput = document.getElementById('priceFrom');
+    if (priceFromInput) priceFromInput.placeholder = lang === 'kz' ? '0' : '0';
+    const priceToInput = document.getElementById('priceTo');
+    if (priceToInput) priceToInput.placeholder = lang === 'kz' ? '∞' : '∞';
+    const areaFromInput = document.getElementById('areaFrom');
+    if (areaFromInput) areaFromInput.placeholder = lang === 'kz' ? '0' : '0';
+    const areaToInput = document.getElementById('areaTo');
+    if (areaToInput) areaToInput.placeholder = lang === 'kz' ? '∞' : '∞';
+}
+
 // Функция для перевода интерфейса
 function translateInterface(lang) {
     const t = translations[lang];
@@ -342,6 +471,8 @@ document.addEventListener('DOMContentLoaded', function() {
             translateInterface(lang);
             // Переводим кнопки
             translateButtons(lang);
+            // Переводим фильтры поиска
+            translateSearchFilters(lang);
         });
     });
 });
@@ -395,6 +526,48 @@ document.addEventListener('DOMContentLoaded', function() {
             showInfo(t.searchDesc);
         });
     }
+});
+
+// --- Анимации главного экрана ---
+document.addEventListener('DOMContentLoaded', function() {
+  // Анимация логотипа
+  const logo = document.querySelector('.logo');
+  if (logo) {
+    logo.classList.add('animated', 'fade-in-up', 'visible');
+  }
+
+  // Центральный баннер
+  const banner = document.querySelector('.central-banner');
+  if (banner) {
+    banner.classList.add('animated', 'fade-in-up', 'visible');
+    setTimeout(() => banner.classList.add('visible'), 100);
+  }
+
+  // Action-кнопки (staggered)
+  const actionBtns = document.querySelectorAll('.action-btn');
+  actionBtns.forEach((btn, i) => {
+    btn.classList.add('animated', 'fade-in-up', `stagger-${i}`);
+    setTimeout(() => btn.classList.add('visible'), 300 + i * 120);
+  });
+
+  // Цитата
+  const quoteSection = document.querySelector('.quote-section');
+  if (quoteSection) {
+    quoteSection.classList.add('animated', 'fade-in', 'visible');
+    setTimeout(() => quoteSection.classList.add('visible'), 1000);
+  }
+
+  // Боковые баннеры (если есть)
+  const adBanners = document.querySelectorAll('.ad-banner');
+  adBanners.forEach((ad, i) => {
+    ad.classList.add('animated', 'scale-in');
+    setTimeout(() => ad.classList.add('visible'), 700 + i * 200);
+  });
+
+  // Анимация появления для всех animated
+  document.querySelectorAll('.animated').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 100 + i * 120);
+  });
 });
 
 // По умолчанию русский

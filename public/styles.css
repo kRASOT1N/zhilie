@@ -610,51 +610,6 @@ body {
     box-shadow: 0 4px 16px rgba(76,175,80,0.13);
 }
 
-/* Footer */
-.footer {
-    background: linear-gradient(90deg, var(--main-green-light) 0%, var(--main-green) 100%);
-    color: white;
-    padding: 28px 0 18px 0;
-    border-radius: 32px 32px 0 0;
-    box-shadow: 0 -2px 16px rgba(76,175,80,0.07);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 0 20px;
-}
-
-.footer-link {
-    color: #e8f5e8;
-    text-decoration: none;
-    margin-bottom: 10px;
-    display: block;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 8px;
-    transition: background 0.2s;
-    padding: 4px 0;
-}
-
-.footer-link:hover {
-    background: #4CAF50;
-    text-decoration: underline;
-}
-
-.footer-copyright {
-    color: #e8f5e8;
-    font-size: 15px;
-    margin-top: 6px;
-}
-
 /* Фиксированные рекламные баннеры */
 .ad-banner {
     position: fixed;
@@ -1824,4 +1779,570 @@ body {
     .main-content {
         padding-bottom: 100px;
     }
+} 
+
+/* --- АНИМАЦИИ --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animated { opacity: 0; }
+.visible { opacity: 1 !important; transition: opacity 0.7s, transform 0.7s; }
+.fade-in-up { animation: fadeInUp 0.7s cubic-bezier(.4,0,.2,1) forwards; }
+.fade-in { animation: fadeIn 1s cubic-bezier(.4,0,.2,1) forwards; }
+.scale-in { animation: scaleIn 0.7s cubic-bezier(.4,0,.2,1) forwards; }
+
+/* Stagger для action-btn */
+[class^="stagger-"] { opacity: 0; }
+.stagger-0.visible { animation-delay: 0.1s; }
+.stagger-1.visible { animation-delay: 0.2s; }
+.stagger-2.visible { animation-delay: 0.3s; }
+.stagger-3.visible { animation-delay: 0.4s; }
+.stagger-4.visible { animation-delay: 0.5s; }
+.stagger-5.visible { animation-delay: 0.6s; }
+
+/* --- АДАПТИВНОСТЬ: БАННЕР И КНОПКИ --- */
+@media (max-width: 600px) {
+  .central-banner {
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+  .banner-content {
+    flex-direction: column;
+    padding: 10px 6px;
+    min-height: unset;
+    border-radius: 12px;
+  }
+  .banner-image {
+    margin: 10px 0 0 0;
+    max-width: 100%;
+    width: 100%;
+    display: none; /* Скрываем баннер-картинку на очень маленьких экранах */
+  }
+  .banner-text h2 {
+    font-size: 16px;
+  }
+  .banner-text p {
+    font-size: 12px;
+  }
+  .main-actions {
+    padding: 0 2px;
+  }
+  .action-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .action-btn {
+    padding: 12px;
+    min-width: 0;
+    font-size: 14px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .action-icon {
+    font-size: 22px;
+    margin-right: 8px;
+  }
+  .action-text h3 {
+    font-size: 15px;
+  }
+  .action-text p {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .banner-content, .central-banner {
+    padding: 0 2px;
+    margin-bottom: 10px;
+  }
+  .banner-image {
+    display: none !important;
+  }
+  .action-btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+} 
+
+/* --- Нативный рекламный блок --- */
+.native-ad-block {
+  max-width: 900px;
+  margin: 36px auto 36px auto;
+  padding: 0 12px;
+  animation: fadeInUp 0.8s cubic-bezier(.4,0,.2,1);
+}
+.native-ad-content {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #f8fafc 0%, #e0f7fa 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(16,185,129,0.10);
+  padding: 28px 32px;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.native-ad-text {
+  flex: 1;
+}
+.native-ad-badge {
+  display: inline-block;
+  background: #10b981;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 3px 12px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.native-ad-text h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #256029;
+  margin: 0 0 8px 0;
+}
+.native-ad-text p {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 16px;
+}
+.native-ad-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 14px;
+  padding: 10px 28px;
+  text-decoration: none;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.13);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.native-ad-btn:hover {
+  background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+  box-shadow: 0 4px 16px rgba(16,185,129,0.18);
+}
+.native-ad-image {
+  flex: 0 0 180px;
+  max-width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.native-ad-image img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.10);
+}
+@media (max-width: 700px) {
+  .native-ad-content {
+    flex-direction: column;
+    gap: 16px;
+    padding: 18px 10px;
+    text-align: center;
+  }
+  .native-ad-image {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .native-ad-image img {
+    height: 90px;
+  }
+  .native-ad-text h3 {
+    font-size: 17px;
+  }
+  .native-ad-text p {
+    font-size: 13px;
+  }
+} 
+
+/* --- Цитата в хедере --- */
+.header-quote {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 32px;
+}
+.header-quote .quote {
+  font-size: 22px;
+  font-style: italic;
+  color: #256029;
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s, color 0.3s;
+  cursor: pointer;
+  background: #eafaf1;
+  border-radius: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.07);
+  display: inline-block;
+}
+.header-quote .quote-author {
+  font-size: 14px;
+  color: #10b981;
+  font-weight: 600;
+}
+.header-quote .quote:hover {
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 0 8px 32px rgba(16,185,129,0.18);
+  color: #059669;
+  background: #e0f7fa;
+}
+@media (max-width: 900px) {
+  .header-quote {
+    margin: 0 8px;
+  }
+  .header-quote .quote {
+    font-size: 16px;
+    padding: 7px 10px;
+  }
+}
+
+/* --- Рекламные блоки у нижних краёв main-content --- */
+.native-ads-row {
+  display: flex;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 36px auto 0 auto;
+  padding: 0 12px 24px 12px;
+  justify-content: center;
+  align-items: flex-end;
+  animation: fadeInUp 0.8s cubic-bezier(.4,0,.2,1);
+}
+.native-ads-row .native-ad-block {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 600px;
+}
+@media (max-width: 900px) {
+  .native-ads-row {
+    flex-direction: column;
+    gap: 18px;
+    margin: 24px auto 0 auto;
+    padding: 0 4px 16px 4px;
+    align-items: stretch;
+  }
+  .native-ads-row .native-ad-block {
+    max-width: 100%;
+  }
+} 
+
+/* --- Квадратные боковые рекламные блоки --- */
+.ad-square {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  z-index: 100;
+  top: calc(50% - 220px); /* примерно над центральным баннером */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  pointer-events: none;
+}
+.ad-square-content {
+  background: linear-gradient(90deg, #f8fafc 0%, #e0f7fa 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(16,185,129,0.10);
+  padding: 12px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  pointer-events: auto;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ad-square-content:hover {
+  transform: scale(1.07) rotate(-2deg);
+  box-shadow: 0 8px 32px rgba(16,185,129,0.18);
+}
+.ad-square img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.ad-square-text {
+  font-size: 14px;
+  color: #256029;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 2px;
+}
+.ad-square-left {
+  left: 32px;
+}
+.ad-square-right {
+  right: 32px;
+}
+@media (max-width: 1200px) {
+  .ad-square {
+    width: 100px;
+    height: 100px;
+  }
+  .ad-square-content {
+    width: 80px;
+    height: 80px;
+    padding: 8px 4px 4px 4px;
+  }
+  .ad-square img {
+    width: 38px;
+    height: 38px;
+  }
+  .ad-square-text {
+    font-size: 11px;
+  }
+  .ad-square-left { left: 8px; }
+  .ad-square-right { right: 8px; }
+}
+@media (max-width: 900px) {
+  .ad-square { display: none !important; }
+} 
+
+/* --- Кнопка закрытия для ad-square --- */
+.ad-square-content {
+  position: relative;
+}
+.ad-square-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(16,185,129,0.12);
+  color: #059669;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s, color 0.2s;
+  z-index: 2;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ad-square-content:hover .ad-square-close {
+  opacity: 1;
+}
+.ad-square-close:hover {
+  background: #10b981;
+  color: #fff;
+} 
+
+/* --- Компактный футер --- */
+.footer {
+  background: linear-gradient(90deg, var(--main-green-light) 0%, var(--main-green) 100%);
+  color: white;
+  padding: 10px 0 6px 0;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -2px 16px rgba(76,175,80,0.07);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+}
+/* --- Футер: текст в одну строку --- */
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.footer-link {
+  color: #e8f5e8;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background 0.2s;
+  padding: 2px 0;
+  margin-bottom: 0;
+  display: inline-block;
+}
+.footer-link:hover {
+  background: #4CAF50;
+  text-decoration: underline;
+}
+.footer-copyright {
+  color: #e8f5e8;
+  font-size: 12px;
+  margin-top: 0;
+  display: inline-block;
+}
+@media (max-width: 480px) {
+  .footer-content {
+    gap: 8px;
+  }
+  .footer-link, .footer-copyright {
+    font-size: 11px;
+  }
+} 
+
+/* --- Сетка объявлений и карточки (favorites + search) --- */
+.adsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 16px 40px 16px;
+}
+
+.ad-card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 2px 16px rgba(76,175,80,0.10);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+  min-width: 0;
+}
+.ad-card:hover {
+  box-shadow: 0 8px 32px rgba(76,175,80,0.13);
+  transform: translateY(-4px) scale(1.02);
+}
+.ad-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 24px 24px 0 0;
+  position: relative;
+  background: #f7f9fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ad-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px 24px 0 0;
+}
+.ad-content {
+  padding: 22px 20px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ad-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #256029;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ad-details {
+  display: flex;
+  gap: 18px;
+  font-size: 15px;
+  color: #888;
+  margin-bottom: 2px;
+}
+.ad-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ad-detail-label {
+  font-size: 13px;
+  color: #b2b2b2;
+}
+.ad-detail-value {
+  font-size: 15px;
+  color: #256029;
+  font-weight: 600;
+}
+.ad-price {
+  font-size: 19px;
+  color: #388e3c;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.ad-location {
+  font-size: 15px;
+  color: #256029;
+  font-weight: 600;
+}
+.ad-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #888;
+}
+.ad-owner {
+  font-weight: 500;
+  color: #256029;
+}
+.ad-stats {
+  display: flex;
+  gap: 12px;
+}
+.ad-stat {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.ad-premium-badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background: linear-gradient(90deg, #ffd700 0%, #ffb300 100%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255,215,0,0.13);
+  z-index: 2;
+}
+.fav-btn-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.fav-btn:hover {
+  transform: scale(1.2);
 } 

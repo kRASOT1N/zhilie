@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Подача объявления | Жилье.kz</title>
+    <title>Подать объявление | Жилье.kz</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -380,23 +380,27 @@
     </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header animated fade-in-up">
         <div class="header-top">
-            <div class="logo">
+            <div class="logo animated fade-in-up">
                 <div class="logo-text">
-                    <span class="logo-main">Жилье</span>
-                    <span class="logo-kz">kz</span>
+                    <a href="/" style="text-decoration:none;color:inherit;"><span class="logo-main">Жилье</span> <span class="logo-kz">kz</span></a>
                 </div>
             </div>
-            <div class="header-buttons">
-                <a href="index.html" class="btn btn-outline">На главную</a>
-                <div class="lang-switcher">
-                    <button class="lang-btn" data-lang="ru">Рус</button>
-                    <span class="lang-divider">|</span>
-                    <button class="lang-btn" data-lang="kz">Қаз</button>
-                </div>
+            <!-- Удалена кнопка 'На главную' -->
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="ru">Рус</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="kz">Қаз</button>
             </div>
         </div>
+        <nav class="navigation animated fade-in-up">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="search.html" class="nav-link">Поиск</a>
+            <a href="submit.html" class="nav-link active">Подать объявление</a>
+            <a href="favorites.html" class="nav-link">Избранное</a>
+            <a href="cabinet.html" class="nav-link">Кабинет</a>
+        </nav>
     </header>
     <main>
         <div class="submit-container">

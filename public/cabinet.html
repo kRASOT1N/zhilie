@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет | Жилье.kz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .cabinet-main-card {
+            max-width: 520px;
+            margin: 48px auto 0 auto;
+            background: #fff;
+            border-radius: 28px;
+            box-shadow: 0 8px 32px rgba(16,185,129,0.13);
+            padding: 38px 28px 28px 28px;
+            animation: fadeInUp 0.8s cubic-bezier(.4,0,.2,1);
+        }
+        .cabinet-greeting {
+            font-size: 22px;
+            font-weight: 700;
+            color: #256029;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cabinet-userinfo {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .cabinet-balance-block {
+            background: linear-gradient(90deg, #e0f7fa 0%, #f8fafc 100%);
+            border-radius: 18px;
+            box-shadow: 0 2px 12px rgba(16,185,129,0.07);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 22px;
+            justify-content: space-between;
+        }
+        .cabinet-balance-amount {
+            font-size: 28px;
+            font-weight: 700;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cabinet-balance-amount .balance-icon {
+            font-size: 28px;
+        }
+        .cabinet-balance-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .cabinet-topup-btn {
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 14px;
+            padding: 10px 28px;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(16,185,129,0.13);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .cabinet-topup-btn:hover {
+            background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+            box-shadow: 0 4px 16px rgba(16,185,129,0.18);
+        }
+        .cabinet-ads-block {
+            margin-bottom: 28px;
+        }
+        .cabinet-ads-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #256029;
+        }
+        .cabinet-ads-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .cabinet-ad-card {
+            background: #f7f9fb;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(16,185,129,0.07);
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            color: #333;
+            font-size: 15px;
+        }
+        .cabinet-ad-card .ad-title {
+            font-weight: 600;
+            color: #059669;
+        }
+        .cabinet-logout-btn {
+            width: 100%;
+            max-width: 220px;
+            margin: 0 auto;
+            display: block;
+            margin-top: 18px;
+        }
+        /* Модальное окно */
+        .modal-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.18);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+        .modal {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(16,185,129,0.13);
+            padding: 32px 24px 24px 24px;
+            min-width: 320px;
+            max-width: 90vw;
+            animation: fadeInUp 0.4s;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #059669;
+            cursor: pointer;
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #256029;
+            margin-bottom: 18px;
+        }
+        .modal label {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+        .modal input[type="number"] {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1.5px solid #d0f5d0;
+            font-size: 16px;
+            margin-bottom: 18px;
+            margin-top: 6px;
+        }
+        .modal .btn {
+            width: 100%;
+        }
+        .modal-success {
+            color: #059669;
+            font-weight: 600;
+            margin-top: 12px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .cabinet-main-card { padding: 18px 4px 18px 4px; }
+            .modal { min-width: 0; padding: 18px 6px 14px 6px; }
+        }
+        .spinner-cabinet {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+        .spinner-cabinet-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #10b981;
+            opacity: 0.7;
+            animation: spinner-cabinet-bounce 1.2s infinite both;
+        }
+        .spinner-cabinet-dot:nth-child(2) { animation-delay: 0.2s; }
+        .spinner-cabinet-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes spinner-cabinet-bounce {
+            0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header animated fade-in-up">
+        <div class="header-top">
+            <div class="logo animated fade-in-up">
+                <div class="logo-text">
+                    <a href="/" style="text-decoration:none;color:inherit;"><span class="logo-main">Жилье</span> <span class="logo-kz">kz</span></a>
+                </div>
+            </div>
+            <!-- Удалена кнопка 'На главную' -->
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="ru">Рус</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="kz">Қаз</button>
+            </div>
+        </div>
+        <nav class="navigation animated fade-in-up">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="search.html" class="nav-link">Поиск</a>
+            <a href="submit.html" class="nav-link">Подать объявление</a>
+            <a href="favorites.html" class="nav-link">Избранное</a>
+            <a href="cabinet.html" class="nav-link active">Кабинет</a>
+        </nav>
+    </header>
+    <main class="main-content">
+        <div id="cabinet-loading" style="display:flex;align-items:center;justify-content:center;min-height:320px;">
+            <div class="spinner-cabinet">
+                <div class="spinner-cabinet-dot"></div>
+                <div class="spinner-cabinet-dot"></div>
+                <div class="spinner-cabinet-dot"></div>
+            </div>
+        </div>
+        <section class="cabinet-main-card animated fade-in-up" id="cabinet-main-card" style="display:none;">
+            <div class="cabinet-greeting">
+                <span>Здравствуйте, <span id="cabinet-username">Пользователь</span>!</span>
+            </div>
+            <div class="cabinet-userinfo">
+                <span>Телефон: <span id="cabinet-phone">+7 (---) --- -- --</span></span>
+                <span>Email: <span id="cabinet-email">—</span></span>
+            </div>
+            <div class="cabinet-balance-block">
+                <div class="cabinet-balance-amount">
+                    <span class="balance-icon">💰</span>
+                    <span id="cabinet-balance">—</span> ₸
+                </div>
+                <div class="cabinet-balance-actions">
+                    <button class="cabinet-topup-btn" id="cabinet-topup-btn">Пополнить</button>
+                </div>
+            </div>
+            <div class="cabinet-ads-block">
+                <div class="cabinet-ads-title">Мои объявления</div>
+                <div class="cabinet-ads-list" id="cabinet-ads-list">
+                    <div class="cabinet-ad-card">
+                        <div class="ad-title">У вас пока нет объявлений.</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline cabinet-logout-btn" id="cabinet-logout-btn">Выйти</button>
+        </section>
+    </main>
+    <footer class="footer animated fade-in-up">
+        <div class="footer-content">
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <div class="footer-copyright">Жильē.kz 2024 ©</div>
+        </div>
+    </footer>
+    <!-- Модальное окно для пополнения -->
+    <div id="modal-bg" class="modal-bg" style="display:none;">
+        <div class="modal">
+            <button class="modal-close" id="modal-close">×</button>
+            <div class="modal-title">Пополнение баланса</div>
+            <label for="topup-amount">Сумма пополнения (₸):</label>
+            <input type="number" id="topup-amount" min="100" max="1000000" step="100" value="1000" />
+            <button class="btn" id="modal-pay-btn">Оплатить</button>
+            <div class="modal-success" id="modal-success" style="display:none;"></div>
+        </div>
+    </div>
+    <script src="https://widget.tiptoppay.kz/bundles/widget.js"></script>
+    <script>
+    // Получение данных пользователя и баланса через API
+    async function fetchUserData(phone) {
+        try {
+            const response = await fetch('https://hook.us2.make.com/w9ka0t8rqjfwk8sf3uejzsrmqpkry72y', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phone })
+            });
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (e) {}
+        return null;
+    }
+    // Пополнение баланса через вебхук
+    async function topupBalance(phone, amount) {
+        try {
+            const response = await fetch('https://hook.us2.make.com/1498nsilyllqnskpc0ivh3io4sijn6xp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phone, amount })
+            });
+            if (response.ok) {
+                return true;
+            }
+        } catch (e) {}
+        return false;
+    }
+    // === Мультиязычность для кабинета ===
+    const translations = {
+      ru: {
+        greeting: "Здравствуйте,",
+        phone: "Телефон",
+        email: "Email",
+        balance: "Баланс",
+        topup: "Пополнить",
+        myAds: "Мои объявления",
+        noAds: "У вас пока нет объявлений.",
+        logout: "Выйти",
+        cabinet: "Личный кабинет"
+      },
+      kz: {
+        greeting: "Сәлеметсіз бе,",
+        phone: "Телефон",
+        email: "Email",
+        balance: "Баланс",
+        topup: "Толықтыру",
+        myAds: "Менің хабарландыруларым",
+        noAds: "Сізде әлі хабарландыру жоқ.",
+        logout: "Шығу",
+        cabinet: "Жеке кабинет"
+      }
+    };
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      const t = translations[lang] || translations.ru;
+      document.querySelector('.cabinet-greeting span').innerHTML = `${t.greeting} <span id="cabinet-username">${document.getElementById('cabinet-username').textContent}</span>!`;
+      document.querySelector('.cabinet-userinfo span:nth-child(1)').innerHTML = `${t.phone}: <span id="cabinet-phone">${document.getElementById('cabinet-phone').textContent}</span>`;
+      document.querySelector('.cabinet-userinfo span:nth-child(2)').innerHTML = `${t.email}: <span id="cabinet-email">${document.getElementById('cabinet-email').textContent}</span>`;
+      document.querySelector('.cabinet-balance-block .cabinet-balance-amount').childNodes[2].textContent = ` ${t.balance}: `;
+      document.getElementById('cabinet-topup-btn').textContent = t.topup;
+      document.querySelector('.cabinet-ads-title').textContent = t.myAds;
+      document.querySelector('.cabinet-ad-card .ad-title').textContent = t.noAds;
+      document.getElementById('cabinet-logout-btn').textContent = t.logout;
+      document.title = `${t.cabinet} | Жилье.kz`;
+      // Активная кнопка
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+    }
+    document.addEventListener('DOMContentLoaded', async function() {
+        // --- Логика загрузки данных пользователя ---
+        let user = { fullname: '', phone: '', email: '', balances: 0 };
+        const mainCard = document.getElementById('cabinet-main-card');
+        const loadingDiv = document.getElementById('cabinet-loading');
+        try {
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                const localUser = JSON.parse(userData);
+                if (localUser.phone) {
+                    const apiUser = await fetchUserData(localUser.phone);
+                    if (apiUser && (apiUser.fullname || apiUser.phone || apiUser.email)) {
+                        user = apiUser;
+                    } else {
+                        user = localUser;
+                    }
+                } else {
+                    user = localUser;
+                }
+            }
+        } catch(e) {}
+        // Заполнить данные (или заглушку)
+        document.getElementById('cabinet-username').textContent = user.fullname || 'Нет данных';
+        document.getElementById('cabinet-phone').textContent = user.phone || '—';
+        document.getElementById('cabinet-email').textContent = user.email || '—';
+        document.getElementById('cabinet-balance').textContent = user.balances !== undefined ? user.balances : '—';
+        // Показать основной контент, скрыть лоадер (всегда показывать карточку)
+        if (mainCard && loadingDiv) {
+            loadingDiv.style.display = 'none';
+            mainCard.style.display = 'block';
+            mainCard.style.visibility = 'visible';
+            mainCard.style.opacity = '1';
+            mainCard.style.position = 'relative';
+            mainCard.style.zIndex = '1000';
+            setTimeout(() => {
+              console.log('mainCard computed style:', getComputedStyle(mainCard).display, getComputedStyle(mainCard).visibility, getComputedStyle(mainCard).opacity);
+            }, 1000);
+        }
+        // --- Мультиязычность ---
+        const lang = localStorage.getItem('lang') || 'ru';
+        setLang(lang);
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.onclick = function() {
+            setLang(this.getAttribute('data-lang'));
+          };
+        });
+        // Кнопка выхода
+        const logoutBtn = document.getElementById('cabinet-logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('userData');
+                fetch('/api/logout', {method:'POST'}).then(()=>{
+                    window.location.href = 'index.html';
+                });
+            });
+        }
+        // Модальное окно пополнения
+        const modalBg = document.getElementById('modal-bg');
+        const topupBtn = document.getElementById('cabinet-topup-btn');
+        const modalClose = document.getElementById('modal-close');
+        const modalPayBtn = document.getElementById('modal-pay-btn');
+        const modalSuccess = document.getElementById('modal-success');
+        let isPaying = false;
+        if (topupBtn) {
+            topupBtn.addEventListener('click', function() {
+                document.getElementById('topup-amount').value = 1000;
+                modalSuccess.style.display = 'none';
+                modalPayBtn.disabled = false;
+                modalPayBtn.innerHTML = 'Оплатить';
+                modalBg.style.display = 'flex';
+            });
+        }
+        if (modalClose) {
+            modalClose.addEventListener('click', function() {
+                modalBg.style.display = 'none';
+            });
+        }
+        if (modalBg) {
+            modalBg.addEventListener('click', function(e) {
+                if (e.target === modalBg) modalBg.style.display = 'none';
+            });
+        }
+        if (modalPayBtn) {
+            modalPayBtn.addEventListener('click', function() {
+                if (isPaying) return;
+                const amount = parseFloat(document.getElementById('topup-amount').value);
+                if (isNaN(amount) || amount < 100) {
+                    modalSuccess.textContent = 'Ошибка: введите корректную сумму (от 100 ₸)';
+                    modalSuccess.style.display = 'block';
+                    return;
+                }
+                // Запускаем TipTop Pay
+                var widget = new tiptop.Widget();
+                modalPayBtn.disabled = true;
+                modalPayBtn.innerHTML = '<span class="spinner-cabinet"><span class="spinner-cabinet-dot"></span><span class="spinner-cabinet-dot"></span><span class="spinner-cabinet-dot"></span></span>';
+                widget.pay('charge', {
+                    publicId: 'test_api_00000000000000000000002', // Заменить на боевой!
+                    amount: amount,
+                    currency: 'KZT'
+                }, {
+                    onSuccess: async function(options) {
+                        // После успешной оплаты отправляем на вебхук
+                        const ok = await topupBalance(user.phone, amount);
+                        if (ok) {
+                            modalSuccess.textContent = 'Баланс успешно пополнен!';
+                            modalSuccess.style.display = 'block';
+                            // Обновить баланс
+                            const apiUser = await fetchUserData(user.phone);
+                            if (apiUser && apiUser.balances !== undefined) {
+                                document.getElementById('cabinet-balance').textContent = apiUser.balances;
+                            }
+                        } else {
+                            modalSuccess.textContent = 'Ошибка при пополнении. Попробуйте позже.';
+                            modalSuccess.style.display = 'block';
+                        }
+                        modalPayBtn.disabled = false;
+                        modalPayBtn.innerHTML = 'Оплатить';
+                    },
+                    onFail: function(reason) {
+                        modalSuccess.textContent = 'Платеж не выполнен: ' + reason;
+                        modalSuccess.style.display = 'block';
+                        modalPayBtn.disabled = false;
+                        modalPayBtn.innerHTML = 'Оплатить';
+                    },
+                    onComplete: function() {
+                        modalPayBtn.disabled = false;
+                        modalPayBtn.innerHTML = 'Оплатить';
+                    }
+                });
+            });
+        }
+    });
+    </script>
+</body>
+</html> 

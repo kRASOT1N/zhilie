@@ -8,16 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Боковые рекламные блоки -->
-    <div class="ad-banner ad-banner-left">
-        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=200&q=80" alt="Реклама" class="ad-img">
-    </div>
-    <div class="ad-banner ad-banner-right">
-        <img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=200&q=80" alt="Реклама" class="ad-img">
-    </div>
-
     <!-- Header -->
-    <header class="header">
+    <header class="header animated fade-in-up">
         <div class="header-top">
             <div class="logo">
                 <div class="logo-text">
@@ -25,6 +17,13 @@
                     <span class="logo-kz">kz</span>
                 </div>
                 
+            </div>
+            <!-- Цитата по центру -->
+            <div class="quote-section header-quote animated fade-in-up">
+                <blockquote class="quote">
+                    "Сначала делайте тяжелую работу. Легкая работа сама о себе позаботится."
+                </blockquote>
+                <cite class="quote-author">Дейл Карнеги</cite>
             </div>
             <div class="header-buttons">
                 <div class="auth-buttons">
@@ -41,19 +40,19 @@
                 </div>
             </div>
         </div>
-        <nav class="navigation">
+        <nav class="navigation animated fade-in-up">
             <a href="#" class="nav-link active">Главная</a>
-            <a href="#" class="nav-link">Поиск</a>
+            <a href="search.html" class="nav-link">Поиск</a>
             <a href="submit.html" class="nav-link">Подать объявление</a>
-            <a href="#" class="nav-link">Избранное</a>
-            <a href="#" class="nav-link">Кабинет</a>
+            <a href="favorites.html" class="nav-link">Избранное</a>
+            <a href="cabinet.html" class="nav-link">Кабинет</a>
         </nav>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
         <!-- Центральный баннер -->
-        <div class="central-banner">
+        <div class="central-banner animated fade-in-up">
             <div class="banner-content">
                 <div class="banner-text">
                     <h2>Найдите идеальную недвижимость</h2>
@@ -66,7 +65,7 @@
         </div>
 
         <!-- Основные кнопки действий -->
-        <div class="main-actions">
+        <div class="main-actions animated fade-in-up">
             <div class="action-grid">
                 <a href="submit.html?category=housing&action=rent" class="action-btn action-rent" data-ru="Снять" data-kz="Жалға алу">
                     <div class="action-icon">🏠</div>
@@ -118,17 +117,10 @@
             </div>
         </div>
 
-        <!-- Quote Section -->
-        <div class="quote-section">
-            <blockquote class="quote">
-                "Сначала делайте тяжелую работу. Легкая работа сама о себе позаботится."
-            </blockquote>
-            <cite class="quote-author">Дейл Карнеги</cite>
-        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer animated fade-in-up">
         <div class="footer-content">
             <a href="#" class="footer-link">Политика конфиденциальности</a>
             <div class="footer-copyright">Жильē.kz 2024 ©</div>

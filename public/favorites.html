@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избранное | Жилье.kz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header animated fade-in-up">
+        <div class="header-top">
+            <div class="logo animated fade-in-up">
+                <div class="logo-text">
+                    <a href="index.html" style="text-decoration:none;color:inherit;"><span class="logo-main">Жилье</span> <span class="logo-kz">kz</span></a>
+                </div>
+            </div>
+            <div class="header-buttons animated fade-in-up">
+                <a href="index.html" class="btn btn-outline">На главную</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="ru">Рус</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="kz">Қаз</button>
+            </div>
+        </div>
+        <nav class="navigation animated fade-in-up">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="search.html" class="nav-link">Поиск</a>
+            <a href="submit.html" class="nav-link">Подать объявление</a>
+            <a href="favorites.html" class="nav-link active">Избранное</a>
+            <a href="cabinet.html" class="nav-link">Кабинет</a>
+        </nav>
+    </header>
+    <main class="main-content">
+        <h2 style="text-align:center;font-size:28px;font-weight:700;color:#256029;margin:32px 0 18px 0;">Избранные объявления</h2>
+        <div id="adsGrid"></div>
+    </main>
+    <footer class="footer animated fade-in-up">
+        <div class="footer-content">
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <div class="footer-copyright">Жильē.kz 2024 ©</div>
+        </div>
+    </footer>
+    <script src="search.js"></script>
+    <script>
+    // Ждем загрузки allAds и только потом рендерим избранное
+    function renderOnlyFavorites() {
+        if (typeof allAds === 'undefined' || !Array.isArray(allAds) || allAds.length === 0) {
+            // Если объявления еще не загружены, пробуем чуть позже
+            setTimeout(renderOnlyFavorites, 200);
+            return;
+        }
+        // Получаем избранные id из localStorage
+        const favIds = (JSON.parse(localStorage.getItem('favorites') || '[]'));
+        // Фильтруем только избранные объявления
+        const favAds = allAds.filter(ad => favIds.includes(ad.id));
+        const container = document.getElementById('adsGrid');
+        container.innerHTML = '';
+        if (favAds.length === 0) {
+            container.innerHTML = '<div style="padding:40px;text-align:center;color:#888;">Нет избранных объявлений.<br>Добавьте объявления в избранное (сердечко) на странице поиска.</div>';
+            return;
+        }
+        // Рендерим карточки объявлений (используем createAdCard из search.js)
+        favAds.forEach(ad => container.appendChild(createAdCard(ad)));
+    }
+    document.addEventListener('DOMContentLoaded', renderOnlyFavorites);
+    </script>
+</body>
+</html> 
