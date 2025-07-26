@@ -661,9 +661,13 @@ function renderTariffSection() {
 }
 
 function selectTariff(tariffId) {
-  if (userBalance >= tariffs[tariffId].price) {
+  // Для бесплатного тарифа всегда разрешаем выбор
+  if (tariffId === 'free' || userBalance >= tariffs[tariffId].price) {
     selectedTariff = tariffId;
     renderTariffSection();
+  } else {
+    // Показываем ошибку о недостатке средств
+    showErrorMessage(currentLang === 'kz' ? 'Жеткіліксіз қаражат' : 'Недостаточно средств');
   }
 }
 
@@ -736,9 +740,15 @@ function validateForm(formId) {
     }
   });
   
-  // Проверяем тариф
-  if (selectedTariff === 'free' && selectedServices.length === 0) {
+  // Проверяем тариф - всегда должен быть выбран (по умолчанию 'free')
+  if (!selectedTariff) {
     errors.push(currentLang === 'kz' ? 'Тариф таңдаңыз' : 'Выберите тариф');
+  }
+  
+  // Проверяем, что у пользователя достаточно средств для выбранного тарифа
+  // Для бесплатного тарифа (price = 0) проверка не нужна
+  if (selectedTariff && tariffs[selectedTariff] && tariffs[selectedTariff].price > 0 && userBalance < tariffs[selectedTariff].price) {
+    errors.push(currentLang === 'kz' ? 'Жеткіліксіз қаражат тарифке' : 'Недостаточно средств для тарифа');
   }
   
   return errors;
@@ -766,6 +776,12 @@ function showErrors(errors) {
     if (activeForm) {
       activeForm.parentNode.insertBefore(errorDiv, activeForm);
     }
+    
+    // Прокручиваем страницу вверх чтобы пользователь увидел ошибки
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 }
 
